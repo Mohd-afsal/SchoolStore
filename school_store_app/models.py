@@ -59,17 +59,18 @@ class Detail(models.Model):
         ('M', 'MALE'),
         ('F', 'FEMALE'),
     ]
+
     name = models.CharField(max_length=124)
     dob = models.DateField()
     age = models.PositiveIntegerField()
     gender = models.CharField(choices=GENDER_CHOICES, max_length=128, default=None)
     phone_number = models.PositiveBigIntegerField()
     mail = models.EmailField(max_length=254,)
-    address = models.TextField(max_length=250,)
+    address = models.TextField(max_length=250)
     department = models.ForeignKey(Departments, on_delete=models.SET_NULL, blank=True, null=True)
     course = models.ForeignKey(Courses, on_delete=models.SET_NULL, blank=True, null=True)
     purpose = models.ForeignKey(Purpose, on_delete=models.SET_NULL, blank=True, null=True)
-    materials = models.ForeignKey(Materials, on_delete=models.SET_NULL, null=True, default=None)
+    materials = models.CharField(max_length=128, default=None)
 
     def __str__(self):
         return self.name

@@ -1,9 +1,16 @@
 from django import forms
 
-from school_store_app.models import Courses, Detail, Departments
+from school_store_app.models import Courses, Detail, Departments, Materials
 
 
 class DetailCreationForm(forms.ModelForm):
+    MATERIALS_CHOICES = [
+        ('Pen', 'Pen'),
+        ('Exam papers', 'Exam papers'),
+        ('Debit notebook', 'Debit notebook'),
+    ]
+    materials = forms.MultipleChoiceField(choices=MATERIALS_CHOICES, widget=forms.CheckboxSelectMultiple())
+
     class Meta:
         model = Detail
         fields = '__all__'
@@ -15,7 +22,6 @@ class DetailCreationForm(forms.ModelForm):
             'phone_number': forms.NumberInput(attrs={'type': 'number', 'class': 'form-control', 'placeholder': 'Phone Number'}),
             'mail': forms.EmailInput(attrs={'type': 'email', 'class': 'form-control', 'placeholder': 'E-mail'}),
             'address': forms.Textarea(attrs={'type': 'text', 'class': 'form-control', 'placeholder': 'Enter your full address'}),
-            'materials': forms.widgets.CheckboxSelectMultiple()
         }
 
         labels = {
@@ -31,7 +37,10 @@ class DetailCreationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['course'].queryset = Courses.objects.none()
-
+        # self.fields['materials'] = forms.ModelMultipleChoiceField(
+        #     queryset=Materials.objects.values_list('name', flat=True),
+        #     widget=forms.CheckboxSelectMultiple
+        # )
         if 'department' in self.data:
             try:
                 department_id = int(self.data.get('department'))
