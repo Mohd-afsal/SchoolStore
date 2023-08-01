@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if departments %}
+        {{ departments.description|truncatewords:155 }}
+    {% else %}
+        Welcome to the school store.
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    {% if departments %}
+        {{ departments.name }} - SchoolStore.com
+    {% else %}
+        SchoolStore.com
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="card">
+      <h5 class="card-header">Info</h5>
+      <div class="card-body">
+        <h5 class="card-title">Log out</h5>
+        <p class="card-text">Hello {{user.username}}, you are logged in. To log out click the button below.</p>
+        <a href="{% url 'school_store_app:logout' %}" class="btn btn-outline-info">Log Out</a>
+      </div>
+    </div>
+{% else %}
+    <div class="card mt-4">
+      <div class="card-header">
+        Info
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Logging in</h5>
+        <p class="card-text">If you already have an account, click the button below to log in.</p>
+        <a href="{% url 'school_store_app:login' %}" class="btn btn-outline-info">Log In</a>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Register</h5>
+        <p class="card-text">If you do not have an account, click the button below to create one.</p>
+        <a href="{% url 'school_store_app:register' %}" class="btn btn-outline-info">Register</a>
+      </div>
+    </div>
+{% endif %}
+{% endblock %}

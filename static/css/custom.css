@@ -1,0 +1,30 @@
+a{
+    text-decoration: none;
+}
+
+.my_footer{
+    background-color: #01D8D3;
+    margin-top: 100px;
+}
+
+.my_footer p{
+    padding: 10px;
+}
+
+.m0-p0{
+margin: 0px;
+padding: 0px;
+}
+
+.form-check-inline{
+display:inline-block;
+min-height:1.5rem;
+padding-left:1.5em;
+margin-bottom:.125rem
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

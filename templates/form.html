@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    Welcome to the school store form.
+{% endblock %}
+
+{% block title %}
+        {{ user.username }} - SchoolStore.com
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    {% if submitted %}
+        <div class="col-12 alert alert-success" role="alert">
+            Order confirmed!
+        </div>
+        <div class="col-12">
+            <center><a href="/" class="btn btn-info">HOME</a></center>
+        </div>
+    {% else %}
+    <div class="col-6 form-group mt-2 mx-auto">
+        <h3>Fill the form below.</h3>
+        <form action="" method="post" id="detailForm" data-courses-url="{% url 'school_store_app:ajax_load_courses' %}" class="row g-3 mt-2">
+            {% csrf_token %}
+            {{ form.as_div }}
+            <center><input type="submit" value="SUBMIT" class="btn btn-info"></center>
+        </form>
+    </div>
+    {% endif %}
+{% else %}
+    <div class="col-12 alert alert-danger" role="alert">
+        Please log in or register!
+    </div>
+<div class="row">
+    <div class="col-6">
+        <center><a href="{% url 'school_store_app:login' %}" class="btn btn-info" style="width:20%;margin-left:50%;">Log in</a></center>
+    </div>
+    <div class="col-6">
+        <center><a href="{% url 'school_store_app:register' %}" class="btn btn-info" style="width:20%;margin-right:50%;">Register</a></center>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

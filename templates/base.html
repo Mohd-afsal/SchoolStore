@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="{% block  metadescription %}{% endblock %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}" type="text/css" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<div class="container-fluid m0-p0">
+    <header>
+        <div style="width: 100%;">
+          <a href="#"><img src="{% static 'img/banner.jpg' %}" class="img-fluid" alt="image" style=""></a>
+        </div>
+    </header>
+    {% include 'navbar.html' %}
+
+    <div class="container">
+            {% block content %}
+            {% endblock %}
+    </div>
+    {% include 'footer.html' %}
+</div>
+
+<script src="{% static 'js/popper.min.js' %}" type="application/javascript" rel="script"></script>
+<script src="{% static 'js/bootstrap.min.js' %}" type="application/javascript" rel="script"></script>
+<script src="{% static 'js/custom.js' %}" type="application/javascript" rel="script"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="https://kit.fontawesome.com/74824cc964.js" crossorigin="anonymous"></script>
+<script>
+     $("#id_department").change(function () {
+        const url = $("#detailForm").attr("data-courses-url");
+        const departmentId = $(this).val();
+
+        $.ajax({
+            url: url,
+            data: {
+                'department_id': departmentId
+            },
+            success: function (data) {
+               console.log(data)
+                $("#id_course").html(data);
+            }
+        });
+
+    });
+
+</script>
+</body>
+</html>
